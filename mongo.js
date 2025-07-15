@@ -22,24 +22,24 @@ const phonebookSchema = new mongoose.Schema({
   number: String,
 })
 
-const Entry = mongoose.model('Entry', phonebookSchema)
+const Person = mongoose.model('Person', phonebookSchema)
 
 if (name && number) {
-  const entry = new Entry({
+  const person = new Person({
     name: name,
     number: number,
   })
 
-  entry.save().then(result => {
+  person.save().then(result => {
     console.log(`added ${name} number ${number} to phonebook`)
     mongoose.connection.close()
   })
 
 } else {
-  Entry.find({}).then(result => {
+  Person.find({}).then(result => {
     console.log('phonebook:')
-    result.forEach(entry => {
-      console.log(entry.name, entry.number)
+    result.forEach(person => {
+      console.log(person.name, person.number)
     })
     mongoose.connection.close()
   })
