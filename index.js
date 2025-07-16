@@ -20,8 +20,12 @@ app.get('/api/persons', (request, response) => {
 
 app.get('/info/', (request, response) => {
   const requestTime = new Date()
-  response.send(`<p>Phonebook has info for ${persons.length} people</p>
-                 <p>${requestTime.toLocaleString()}</p>`)
+  Person.countDocuments({})
+    .then(number => {
+      response.send(`<p>Phonebook has info for ${number} people</p>
+                     <p>${requestTime.toLocaleString()}</p>`)
+    })
+    .catch(error => next(error))  
 })
 
 app.get('/api/persons/:id', (request, response, next) => {
